@@ -1,28 +1,41 @@
 # FlowVenue
 
-FlowVenue is a Next.js 14 based smart stadium experience platform. The project demonstrates an AI-powered command center logic structure handling attendee egress, crowd distribution, washroom saturation analytics, and predictive inventory mapping.
+FlowVenue is a next-generation, AI-powered smart stadium experience platform built with Next.js 14. Designed for 70,000+ capacity venues, it serves as a massive command center to solve real-time crowd movement and stadium logistics challenges, effectively eliminating traditional event bottlenecks.
 
-## Problem Statement Mapping
-- **Washroom Intelligence:** Utilizing predictive density and thermal algorithms to reduce average 15-minute half-time wait times down to 3 minutes by dynamically diverting crowds to under-utilized facilities.
-- **Companion Tracker:** Eliminating manual wandering by instantly mapping friends using BLE beacons and providing zero-friction meeting point formulations.
-- **Egress Command:** Halving the structural exit rate delay via automated gate-release staggering linked natively to live ride-hail surge pricing datasets.
-- **Inventory Predictor:** Preventing surprise stockouts uniquely mapped locally via point-of-sale burn velocities.
+## What We Are Doing
+
+Traditional stadiums operate blindly when it comes to real-time crowd dynamics. FlowVenue provides predictive intelligence to anticipate and resolve chokepoints before they happen. We are building a comprehensive command dashboard that manages the entire stadium lifecycle dynamically. 
+
+### Key Problems We Solve
+
+- **Gate Congestion & Egress Command:** Turnstile bottlenecks and post-match gridlocks are solved via automated gate-release staggering. We drastically cut down egress timing while linking natively to live ride-hail surge pricing datasets to manage cab surge and transport overloads.
+- **Washroom Intelligence:** Utilizing predictive density and thermal algorithms to divert crowds to under-utilized facilities, avoiding the 15-minute half-time rush and reducing wait times to under 3 minutes.
+- **Companion Tracker:** Eliminating the hassle of finding lost friends in massive crowds by utilizing live pinning and zero-friction meeting point formulations.
+- **Inventory Predictor:** Preventing surprise merchandise or food stockouts via predictive point-of-sale burn velocities, preemptively warning sellers to restock and prevent crowd clustering.
 
 ## Tech Stack
-- Framework: Next.js 14 (App Router)
-- Language: TypeScript
-- Aesthetics: Tailwind CSS, Framer Motion
-- Analytics: Recharts (D3)
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling & Aesthetics:** Tailwind CSS, Framer Motion
+- **Analytics & Visualization:** Recharts, Custom SVG Visualization
+- **State Management:** Zustand
 
 ## Quick Start Configuration
+
+To run the platform locally on your machine:
+
 ```bash
 npm install
 npm run dev
 ```
-Visit `http://localhost:3000` to interact with the Command Dashboard locally.
 
-## Antigravity Deployment Steps
+Visit `http://localhost:3000` to interact with the interactive Command Dashboard in your browser.
+
+## Antigravity Deployment
+
 To seamlessly stage this repository to your target architectural hardware:
+
 ```bash
 antigravity deploy
 ```

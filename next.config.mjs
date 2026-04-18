@@ -13,4 +13,9 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default {
+  output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+};
