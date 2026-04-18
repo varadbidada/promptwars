@@ -30,6 +30,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,10 +40,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${dmSans.variable} ${syne.variable} font-body antialiased bg-navy text-white min-h-screen flex flex-col`}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-electric focus:text-navy focus:font-bold">
+          Skip to main content
+        </a>
         <Providers>
-           <CustomCursor />
-           <Navbar />
-           {children}
+          <ErrorBoundary>
+            <CustomCursor />
+            <Navbar />
+            <main id="main-content" className="flex-1 flex flex-col">
+              {children}
+            </main>
+          </ErrorBoundary>
         </Providers>
       </body>
     </html>

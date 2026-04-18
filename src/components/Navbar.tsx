@@ -132,6 +132,9 @@ export default function Navbar() {
 
             {/* Simulator button */}
             <button
+              aria-label="Toggle Simulator Panel"
+              aria-expanded={panelOpen}
+              aria-controls="simulator-panel"
               onClick={() => setPanelOpen(o => !o)}
               className={`flex items-center space-x-2 border rounded-full px-4 py-1.5 text-[10px] font-black font-mono tracking-widest uppercase transition-all duration-300 ${
                 running
@@ -155,10 +158,14 @@ export default function Navbar() {
             {/* Backdrop */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+              aria-hidden="true"
               onClick={() => setPanelOpen(false)} />
 
             {/* Panel */}
             <motion.div
+              id="simulator-panel"
+              role="dialog"
+              aria-labelledby="simulator-panel-title"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
@@ -168,10 +175,10 @@ export default function Navbar() {
               {/* Panel header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
                 <div>
-                  <h2 className="text-white font-heading font-black text-base">Match Day Scenario Simulator</h2>
+                  <h2 id="simulator-panel-title" className="text-white font-heading font-black text-base">Match Day Scenario Simulator</h2>
                   <p className="text-gray-500 text-[10px] font-mono mt-0.5 uppercase tracking-widest">Select scenarios → Start to fire live events</p>
                 </div>
-                <button onClick={() => setPanelOpen(false)} className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors">
+                <button aria-label="Close panel" onClick={() => setPanelOpen(false)} className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors focus:ring-2 focus:ring-[#00E5FF]">
                   <X className="w-4 h-4 text-gray-400" />
                 </button>
               </div>
@@ -182,7 +189,8 @@ export default function Navbar() {
                   const active = activeScenarios.has(sc.id);
                   return (
                     <button key={sc.id} onClick={() => toggleScenario(sc.id)} disabled={running}
-                      className={`w-full flex items-center gap-3 p-3 rounded-xl border text-left transition-all ${active ? sc.bgColor : 'border-white/5 bg-white/2 hover:bg-white/4'} ${running ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                      aria-pressed={active}
+                      className={`w-full flex items-center gap-3 p-3 rounded-xl border text-left transition-all focus:ring-2 focus:ring-[#00E5FF] ${active ? sc.bgColor : 'border-white/5 bg-white/2 hover:bg-white/4'} ${running ? 'opacity-50 cursor-not-allowed' : ''}`}>
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${active ? sc.bgColor : 'bg-white/5'}`}>
                         <sc.icon className={`w-4 h-4 ${active ? sc.color : 'text-gray-500'}`} />
                       </div>
@@ -201,12 +209,12 @@ export default function Navbar() {
               {/* Start / Stop */}
               <div className="px-4 pb-4 flex gap-2">
                 {!running ? (
-                  <button onClick={startSimulation} disabled={activeScenarios.size === 0}
+                  <button aria-label="Start Simulation" onClick={startSimulation} disabled={activeScenarios.size === 0}
                     className="flex-1 py-3 rounded-xl bg-[#00E5FF] text-[#080C1A] font-mono font-black text-[12px] uppercase tracking-widest disabled:opacity-30 flex items-center justify-center gap-2 active:scale-95 transition-transform">
                     <Play className="w-4 h-4" /> Start Simulation
                   </button>
                 ) : (
-                  <button onClick={stopSimulation}
+                  <button aria-label="Stop Simulation" onClick={stopSimulation}
                     className="flex-1 py-3 rounded-xl bg-red-500/20 border border-red-500/50 text-red-400 font-mono font-black text-[12px] uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-transform">
                     <Square className="w-4 h-4" /> Stop Simulation
                   </button>
@@ -215,8 +223,8 @@ export default function Navbar() {
 
               {/* Event log */}
               {eventLog.length > 0 && (
-                <div className="border-t border-white/5 px-4 py-3 space-y-1.5 bg-black/20">
-                  <p className="text-[9px] text-gray-600 font-mono uppercase tracking-widest mb-2">Event Log</p>
+                <div aria-live="polite" aria-atomic="true" className="border-t border-white/5 px-4 py-3 space-y-1.5 bg-black/20">
+                  <p className="text-[9px] text-gray-600 font-mono uppercase tracking-widest mb-2" aria-hidden="true">Event Log</p>
                   <AnimatePresence mode="popLayout">
                     {eventLog.map(ev => (
                       <motion.p key={ev.id}
@@ -233,7 +241,7 @@ export default function Navbar() {
 
               {/* Running pulse banner */}
               {running && (
-                <div className="bg-[#00F0A0]/10 border-t border-[#00F0A0]/20 px-4 py-2 flex items-center gap-2">
+                <div aria-live="assertive" className="bg-[#00F0A0]/10 border-t border-[#00F0A0]/20 px-4 py-2 flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-[#00F0A0] animate-ping" />
                   <p className="text-[#00F0A0] text-[10px] font-mono font-bold uppercase tracking-widest">Live simulation active — events fire every 6s</p>
                 </div>
